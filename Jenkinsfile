@@ -10,20 +10,19 @@ pipeline {
         
         stage('Build backend image') {
             steps {
-                sh 'docker build -t my-backend:v2 .'
+                sh 'docker build -t my-backend:v2 backend/'
             }
         }
         
         stage('Build frontend image') {
             steps{
-                sh 'docker build -t my-frontend:v2 .'
+                sh 'docker build -t my-frontend:v2 frontend/'
             }
         }
         
-        stage('load image to kubernetes') {
+        stage('Skip Kind Load') {
             steps {
-                sh 'kind load docker-image my-backend:v2 --name dev-cluster'
-                sh 'kind load docker-image my-frontend:v2 --name dev-cluster'
+                echo "Skipping kind load"
             }
         }
         
